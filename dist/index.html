@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canada Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background-color: #1e90ff;
+      color: white;
+    }
+    button:hover {
+      background-color: #005bb5;
+    }
+    #reset-btn {
+      margin-top: 30px;
+      background-color: #ff6347;
+    }
+    #reset-btn:hover {
+      background-color: #cc0000;
+    }
+    #score-container {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>Canada Quiz 🍁</h1>
+    <div id="question-box"></div>
+    <button id="reset-btn">Reset</button>
+    <div id="score-container"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "What is the capital of Canada?", options: ["Toronto", "Ottawa", "Vancouver", "Montreal"], answer: "Ottawa" },
+      { question: "Which leaf is on the Canadian flag?", options: ["Oak", "Maple", "Pine", "Birch"], answer: "Maple" },
+      { question: "Which ocean is on Canada’s west coast?", options: ["Atlantic", "Pacific", "Arctic", "Indian"], answer: "Pacific" },
+      { question: "What is the national animal of Canada?", options: ["Moose", "Bear", "Beaver", "Wolf"], answer: "Beaver" },
+      { question: "What is the largest province in Canada by area?", options: ["Ontario", "Quebec", "British Columbia", "Alberta"], answer: "Quebec" },
+      { question: "Which Canadian city hosted the 2010 Winter Olympics?", options: ["Toronto", "Calgary", "Vancouver", "Montreal"], answer: "Vancouver" },
+      { question: "What is Canada’s currency called?", options: ["Dollar", "Euro", "Peso", "Pound"], answer: "Dollar" },
+      { question: "Which famous waterfall is located on the border of Canada and the USA?", options: ["Niagara Falls", "Angel Falls", "Victoria Falls", "Iguazu Falls"], answer: "Niagara Falls" },
+      { question: "How many provinces does Canada have?", options: ["10", "13", "12", "11"], answer: "10" },
+      { question: "Which province is known for French being the main language?", options: ["British Columbia", "Ontario", "Quebec", "Manitoba"], answer: "Quebec" },
+      { question: "What colors are on the Canadian flag?", options: ["Red and White", "Blue and White", "Green and Red", "Red and Yellow"], answer: "Red and White" },
+      { question: "Which city is the CN Tower located in?", options: ["Montreal", "Vancouver", "Toronto", "Calgary"], answer: "Toronto" },
+      { question: "Who is the head of state in Canada?", options: ["President", "Prime Minister", "Monarch", "Governor"], answer: "Monarch" },
+      { question: "Which Canadian province is an island?", options: ["Prince Edward Island", "Nova Scotia", "Newfoundland", "New Brunswick"], answer: "Prince Edward Island" },
+      { question: "Which sport is considered Canada’s national winter sport?", options: ["Soccer", "Basketball", "Ice Hockey", "Baseball"], answer: "Ice Hockey" }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    const questionBox = document.getElementById('question-box');
+    const resetBtn = document.getElementById('reset-btn');
+    const scoreBox = document.getElementById('score-container');
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      questionBox.innerHTML = `<h2>${q.question}</h2>`;
+      q.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.onclick = () => {
+          if (option === q.answer) score++;
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            showQuestion();
+          } else {
+            showScore();
+          }
+        };
+        questionBox.appendChild(btn);
+      });
+    }
+
+    function showScore() {
+      questionBox.innerHTML = '';
+      scoreBox.textContent = `You scored ${score} out of ${questions.length}! 🎉`;
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      scoreBox.textContent = '';
+      showQuestion();
+    }
+
+    resetBtn.onclick = resetQuiz;
+
+    showQuestion();
+  </script>
+
+</body>
+</html>
+
+
